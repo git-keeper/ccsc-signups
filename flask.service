@@ -4,8 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/app/.venv/bin/gunicorn --bind 0.0.0.0 --chdir 
-/base_covid_app/server/ server:app
+ExecStart=/app/.venv/bin/gunicorn --bind 0.0.0.0 --chdir /app app:app
 
 [Install]
 WantedBy=multi-user.target
