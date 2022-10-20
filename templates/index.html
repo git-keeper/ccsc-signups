@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Register an Account on the CCSC git-keeper server{% endblock %}</h1>
+    <p>
+        During the tutorial, you will have an opportunity to play the role of a student in 
+        a class that uses git-keeper to obtain the base code for an assignment and submit
+        your work.  Afterward you will play the role of a faculty member to create a class
+        and an assignment.
+    </p>
+
+    <p>
+        To participate in the tutorial, you will need an account on our git-keeper server.
+        Please fill out your name and email address below.  When you click on "Submit,"
+        we will create an account for you and email you login credentials.
+    </p>
+    <form method="post">
+        <label for="fname">First Name</label>
+        <br>
+        <input type="text" name="fname"
+               placeholder="First Name"
+               value="{{ request.form['fname'] }}"></input>
+        <br>
+        <label for="lname">Last Name</label>
+        <br>
+        <input type="text" name="lname"
+               placeholder="Last Name"
+               value="{{ request.form['lname'] }}"></input>
+        <br>
+        <label for="email">Email Address</label>
+        <br>
+        <input type="text" name="email"
+               placeholder="Email Address"
+               value="{{ request.form['email'] }}"></input>
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
