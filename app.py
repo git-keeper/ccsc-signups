@@ -32,14 +32,18 @@ def create():
         if not is_email_valid(email):
             flash('Invalid email address')
         else:
-            print(['gkeep', 'add_faculty', lname, fname, email])
             result = subprocess.call(['gkeep', 'add_faculty', lname, fname, email])
-            print(result)
 
             if result != 0:
                 flash('Email address already registered as a user.')
-            else:
-                return redirect(url_for('response'))
+                return
+
+            with open('/root/ccsce2022.csv', 'a') as f:
+                f.write('{},{},{}\n'.format(lname, fname, email))
+
+            subprocess.call(['sh', 'update.sh'])
+
+            return redirect(url_for('response'))
 
     return render_template('index.html')
 
