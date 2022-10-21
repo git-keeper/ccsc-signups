@@ -41,7 +41,7 @@ def create():
             with open('/root/ccsce2022.csv', 'a') as f:
                 f.write('{},{},{}\n'.format(lname, fname, email))
 
-            subprocess.call(['sh', 'update.sh'])
+            subprocess.call(['sh', '/root/update.sh'])
 
             return redirect(url_for('response'))
 
