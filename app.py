@@ -2,6 +2,12 @@ from re import sub
 from flask import Flask, render_template, request, url_for, flash, redirect
 import subprocess
 from email_validator import validate_email, EmailNotValidError
+import dotenv
+import os
+
+
+dotenv.load_dotenv()
+
 
 def is_email_valid(email):
 	try:
@@ -13,7 +19,7 @@ def is_email_valid(email):
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '42a7f962441e4db32652894755a386455a56f7fb0b67629f'
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 
 
 @app.route('/', methods=('GET', 'POST'))
@@ -36,14 +42,13 @@ def create():
 
             if result != 0:
                 flash('Email address already registered as a user.')
-                return
+            else:
+                with open('/root/ccsce2022.csv', 'a') as f:
+                    f.write('{},{},{}\n'.format(lname, fname, email))
 
-            with open('/root/ccsce2022.csv', 'a') as f:
-                f.write('{},{},{}\n'.format(lname, fname, email))
+                result = subprocess.call(['gkeep', 'modify', 'ccscne', 'ccscne2024.csv'])
 
-            subprocess.call(['sh', '/root/update.sh'])
-
-            return redirect(url_for('response'))
+                return redirect(url_for('response'))
 
     return render_template('index.html')
 

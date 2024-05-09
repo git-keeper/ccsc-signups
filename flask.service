@@ -4,7 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/app/.venv/bin/gunicorn --bind 0.0.0.0 --chdir /app app:app
+ExecStart=/home/ubuntu/ccsc-signups/.venv/bin/gunicorn -w4 --certfile /etc/letsencrypt/live/ccscne.git-keeper.education/fullchain.pem --keyfile /etc/letsencrypt/live/ccscne.git-keeper.education/privkey.pem --chdir /home/ubuntu/ccsc-signups --bind 0.0.0.0:443 "app:app"
 
 [Install]
 WantedBy=multi-user.target
